@@ -188,6 +188,14 @@ function Layout:left(w, h)
 	return x,y,w,h
 end
 
+function Layout:offset(dx, dy, w, h)
+	w,h = calc_width_height(self, w, h)
+	local x,y = self._x + (self._w or 0) + dx, self._y + dy
+	self._isFirstCell = false
+	self._x, self._y, self._w, self._h = x, y, w, h
+	return x,y,w,h
+end
+
 local function layout_iterator(t, idx)
 	idx = (idx or 1) + 1
 	if t[idx] == nil then return nil end
@@ -366,4 +374,5 @@ return setmetatable({
 	right   = function(...) return instance:right(...) end,
 	rows    = function(...) return instance:rows(...) end,
 	cols    = function(...) return instance:cols(...) end,
+	offset  = function(...) return instance:offset(...) end,
 }, {__call = function(_,...) return Layout.new(...) end})
