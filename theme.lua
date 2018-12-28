@@ -80,6 +80,17 @@ function theme.Checkbox(chk, opt, x,y,w,h)
 	end
 end
 
+function theme.Groupbox(text, opt, x,y,w,h)
+	love.graphics.setColor(opt.color or theme.color.normal.fg)
+	if text and text~="" then
+		love.graphics.setFont(opt.font)
+		love.graphics.printf(text, x, y-opt.font:getHeight()-2, w-4, opt.align or "left")
+	end
+	love.graphics.setLineJoin("miter")
+	love.graphics.setLineWidth(1)
+	love.graphics.rectangle("line", x, y, w, h)
+end
+
 function theme.Slider(fraction, opt, x,y,w,h)
 	local xb, yb, wb, hb -- size of the progress bar
 	local r =  math.min(w,h) / 2.1

@@ -49,6 +49,7 @@ return setmetatable({
 	Checkbox = function(...) return instance:Checkbox(...) end,
 	Input = function(...) return instance:Input(...) end,
 	Slider = function(...) return instance:Slider(...) end,
+	Groupbox = function(...) return instance:Groupbox(...) end,
 
 	-- layout
 	layout = instance.layout
