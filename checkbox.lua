@@ -13,7 +13,14 @@ return function(core, checkbox, ...)
 	opt.state = core:registerHitbox(opt.id, x,y,w,h)
 	local hit = core:mouseReleasedOn(opt.id)
 	if hit then
-		checkbox.checked = not checkbox.checked
+		if opt.radiogroup then
+			for _,v in ipairs(opt.radiogroup) do
+				v.checked = false
+			end
+			checkbox.checked = true
+		else
+			checkbox.checked = not checkbox.checked
+		end
 	end
 	core:registerDraw(opt.draw or core.theme.Checkbox, checkbox, opt, x,y,w,h)
 
