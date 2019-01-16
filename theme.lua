@@ -6,11 +6,12 @@ local theme = {}
 theme.cornerRadius = 4
 
 theme.color = {
-	normal   = {bg = { 0.25, 0.25, 0.25}, fg = {0.73,0.73,0.73}},
+	normal   = {bg = { 0.10, 0.22, 0.37}, fg = {0.73,0.73,0.73}},
 	hovered  = {bg = { 0.19,0.6,0.73}, fg = {1,1,1}},
 	active   = {bg = {1,0.6,  0}, fg = {1,1,1}}
 }
 
+local white = {1,1,1,1}
 
 -- HELPER
 function theme.getColorForState(opt)
@@ -52,7 +53,9 @@ end
 function theme.Button(text, opt, x,y,w,h)
 	local c = theme.getColorForState(opt)
 
-	theme.drawBox(x,y,w,h, c, opt.cornerRadius)
+	theme.drawBox(x,y,w,h, c, 0)
+	love.graphics.setColor(white)
+	love.graphics.rectangle("line", x, y, w, h)
 	love.graphics.setColor(c.fg)
 	love.graphics.setFont(opt.font)
 
@@ -67,10 +70,15 @@ function theme.Checkbox(chk, opt, x,y,w,h)
 	theme.drawBox(x+h/10,y+h/10,h*.8,h*.8, c, opt.cornerRadius)
 	love.graphics.setColor(c.fg)
 	if chk.checked then
-		love.graphics.setLineStyle('smooth')
-		love.graphics.setLineWidth(5)
-		love.graphics.setLineJoin("bevel")
-		love.graphics.line(x+h*.2,y+h*.55, x+h*.45,y+h*.75, x+h*.8,y+h*.2)
+		if opt.radiogroup then
+			-- love.graphics.rectangle("fill", x+h*.2, y+h*.2, h*.6, h*.6)
+			love.graphics.circle("fill", x+h*.5, y+h*.5, h*.3)
+		else
+			love.graphics.setLineStyle('smooth')
+			love.graphics.setLineWidth(5)
+			love.graphics.setLineJoin("bevel")
+			love.graphics.line(x+h*.2,y+h*.55, x+h*.45,y+h*.75, x+h*.8,y+h*.2)
+		end
 	end
 
 	if chk.text then
